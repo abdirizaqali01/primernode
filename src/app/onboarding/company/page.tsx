@@ -31,7 +31,7 @@ export default function CompanyOnboarding() {
               <span className="text-sm font-light text-gray-800">Coming Soon</span>
             </div>
             <p className="text-sm text-gray-600 font-light">
-              Expected release: Q2 2024
+              Expected release: Q4 2025
             </p>
           </div>
 

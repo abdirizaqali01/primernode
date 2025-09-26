@@ -1,0 +1,85 @@
+{
+    "company": "Tekai",
+    "model": "Fin-Viet Blended Teams",
+    "team_structures": {
+        "local_roles": [
+            {
+                "role": "Product Owner",
+                "location": "Finland",
+                "responsibility": "Client-facing, backlog prioritization, sprint demos"
+            },
+            {
+                "role": "Project/Delivery Manager",
+                "location": "Finland",
+                "responsibility": "Bridge between client and offshore team, governance"
+            }
+        ],
+        "offshore_roles": [
+            {
+                "role": "Senior Engineer",
+                "location": "Vietnam",
+                "responsibility": "Architecture, mentoring, code review"
+            },
+            {
+                "role": "Mid-level Engineer",
+                "location": "Vietnam",
+                "responsibility": "Feature development, bug fixes"
+            },
+            {
+                "role": "Junior Engineer",
+                "location": "Vietnam",
+                "responsibility": "Support tasks, testing, documentation"
+            }
+        ]
+    },
+    "methodology": {
+        "approach": "Agile (Scrum-like) with flexibility for team augmentation",
+        "sprint_length_weeks": 2,
+        "engagement_models": [
+            "Team Augmentation",
+            "Dedicated Team"
+        ],
+        "onboarding": {
+            "workshops": "Local kickoff workshops (Finland)",
+            "knowledge_transfer": "Pair programming, documentation handoff",
+            "communication": "Weekly live demos, daily async standups"
+        }
+    },
+    "culture": {
+        "style": "Blended cross-cultural model (Nordic client expectations + Vietnamese delivery)",
+        "key_factors": [
+            "High emphasis on communication and alignment",
+            "Time-zone overlap required for critical meetings",
+            "Local Finnish presence for trust and client assurance",
+            "Knowledge transfer & mentoring embedded into projects"
+        ]
+    },
+    "tech_stack_expectations": {
+        "languages": [
+            "JavaScript/TypeScript",
+            "Java",
+            "Python"
+        ],
+        "frameworks": [
+            "React",
+            "Node.js",
+            "Spring Boot"
+        ],
+        "dev_practices": [
+            "Code review by senior engineers",
+            "Test automation (unit/integration)",
+            "CI/CD pipelines",
+            "Agile backlog refinement"
+        ]
+    },
+    "sources": [
+        {
+            "title": "Tekai Official Website – Blended Fin-Viet Model",
+            "url": "https://tekai.co"
+        },
+        {
+            "title": "Tekai Press / Market Positioning",
+            "url": "https://tekai.co/services"
+        }
+    ]
+}
