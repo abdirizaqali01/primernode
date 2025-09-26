@@ -10,12 +10,110 @@ import {
   ChevronRight, Mail, GitPullRequest, FileCode
 } from 'lucide-react';
 
+interface ChatMessage {
+  id: number;
+  sender: string;
+  message: string;
+  timestamp: Date;
+  channel: string;
+  avatar: string;
+}
+
+interface TeamMember {
+  name: string;
+  role: string;
+  location: string;
+  timezone: string;
+  avatar: string;
+  status: string;
+  responsibilities: string[];
+  availability: string;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  type: string;
+  priority: string;
+  assignee: string;
+  status: string;
+  description: string;
+  timeRemaining: string;
+  blockers?: string[];
+  techRequirements?: string[];
+  needsDiscussion?: boolean;
+  discussionWith?: string[];
+  compliance?: string[];
+  dependencies?: string[];
+  author?: string;
+}
+
+interface Meeting {
+  title: string;
+  time: string;
+  duration: string;
+  attendees: string[];
+  type: string;
+  channel: string;
+}
+
+interface Challenge {
+  id: number;
+  title: string;
+  description: string;
+  impact: string;
+  skills: string[];
+  status: string;
+}
+
+interface Channel {
+  id: string;
+  name: string;
+  unread: number;
+}
+
+interface Activity {
+  time: string;
+  user: string;
+  action: string;
+  target: string;
+  type: string;
+  link: string;
+}
+
+interface TeamProgress {
+  sprintProgress: number;
+  tasksCompleted: number;
+  totalTasks: number;
+  codeReviews: number;
+  bugs: number;
+  complianceIssues: number;
+}
+
+interface ProjectScenario {
+  title: string;
+  client: string;
+  duration: string;
+  phase: string;
+  complexity: string;
+  techStack: string[];
+  description: string;
+  compliance: string[];
+}
+
+// Define the context responses with proper typing
+interface ContextResponses {
+  architecture: string[];
+  compliance: string[];
+  general: string[];
+}
+
 const TekaiSimulation = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [simulationState, setSimulationState] = useState('active');
+  const [simulationState, setSimulationState] = useState<'active' | 'paused'>('active');
   const [selectedView, setSelectedView] = useState('overview');
-  const [notifications, setNotifications] = useState([]);
-  const [chatMessages, setChatMessages] = useState([
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
       id: 1,
       sender: "Duc Nguyen",
@@ -43,7 +141,7 @@ const TekaiSimulation = () => {
   ]);
   const [newMessage, setNewMessage] = useState('');
   const [activeChannel, setActiveChannel] = useState('general');
-  const [teamProgress, setTeamProgress] = useState({
+  const [teamProgress, setTeamProgress] = useState<TeamProgress>({
     sprintProgress: 65,
     tasksCompleted: 12,
     totalTasks: 18,
@@ -64,7 +162,7 @@ const TekaiSimulation = () => {
   }, [simulationState]);
 
   // Project scenario data tailored for Tekai's fintech focus
-  const projectScenario = {
+  const projectScenario: ProjectScenario = {
     title: "Nordic Banking API Modernization",
     client: "Scandinavian Financial Group",
     duration: "12 weeks",
@@ -75,7 +173,7 @@ const TekaiSimulation = () => {
     compliance: ["PSD2", "GDPR", "AML", "Local Banking Regulations"]
   };
 
-  const teamMembers = [
+  const teamMembers: TeamMember[] = [
     {
       name: "Lila Virtanen",
       role: "Product Owner",
@@ -138,7 +236,7 @@ const TekaiSimulation = () => {
     }
   ];
 
-  const currentTasks = [
+  const currentTasks: Task[] = [
     {
       id: "BANK-234",
       title: "Implement PSD2-compliant payment API",
@@ -184,7 +282,7 @@ const TekaiSimulation = () => {
     }
   ];
 
-  const upcomingMeetings = [
+  const upcomingMeetings: Meeting[] = [
     {
       title: "Daily Standup",
       time: "09:00 EET / 14:00 ICT",
@@ -211,7 +309,7 @@ const TekaiSimulation = () => {
     }
   ];
 
-  const recentActivity = [
+  const recentActivity: Activity[] = [
     {
       time: "2 min ago",
       user: "Duc Nguyen", 
@@ -246,7 +344,7 @@ const TekaiSimulation = () => {
     }
   ];
 
-  const challenges = [
+  const challenges: Challenge[] = [
     {
       id: 1,
       title: "Cross-timezone Compliance Coordination", 
@@ -273,7 +371,7 @@ const TekaiSimulation = () => {
     }
   ];
 
-  const channels = [
+  const channels: Channel[] = [
     { id: 'general', name: 'General', unread: 2 },
     { id: 'architecture', name: 'Architecture', unread: 1 },
     { id: 'compliance', name: 'Compliance', unread: 0 },
@@ -282,7 +380,7 @@ const TekaiSimulation = () => {
 
   const sendMessage = () => {
     if (newMessage.trim()) {
-      const message = {
+      const message: ChatMessage = {
         id: chatMessages.length + 1,
         sender: "You",
         message: newMessage,
@@ -295,7 +393,7 @@ const TekaiSimulation = () => {
       
       // Simulate team responses based on context
       setTimeout(() => {
-        const contextResponses = {
+        const contextResponses: ContextResponses = {
           'architecture': [
             "I've reviewed the approach. Let's consider using event sourcing for better audit trails.",
             "The microservice boundaries look good. Have we considered the failure scenarios?",
@@ -315,9 +413,11 @@ const TekaiSimulation = () => {
 
         const teamMembers = ["Duc Nguyen", "Lila Virtanen", "Mikko Laakso"];
         const randomMember = teamMembers[Math.floor(Math.random() * teamMembers.length)];
-        const responses = contextResponses[activeChannel] || contextResponses.general;
         
-        const autoResponse = {
+        // Type-safe access to contextResponses
+        const responses = contextResponses[activeChannel as keyof ContextResponses] || contextResponses.general;
+        
+        const autoResponse: ChatMessage = {
           id: chatMessages.length + 2,
           sender: randomMember,
           message: responses[Math.floor(Math.random() * responses.length)],
@@ -545,7 +645,7 @@ const TekaiSimulation = () => {
                 Discussion needed with:
               </div>
               <div className="flex gap-2 mb-2">
-                {task.discussionWith.map((person, index) => (
+                {task.discussionWith?.map((person, index) => (
                   <span key={index} className="px-2 py-1 bg-gray-800/10 text-gray-800 text-xs rounded font-light">
                     {person}
                   </span>

@@ -7,14 +7,14 @@ export default function DeveloperOnboarding() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showCvTextBox, setShowCvTextBox] = useState(false);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [profile, setProfile] = useState({
     userType: '',
     experience: '',
     email: '',
     github: '',
-    cvFile: null,
+    cvFile: null as File | null,
     cvText: ''
   });
 
@@ -43,7 +43,7 @@ export default function DeveloperOnboarding() {
     { title: 'Ready to start!', subtitle: 'Join your first project simulation', progress: 100 }
   ];
 
-  const handleStepTransition = (nextStep) => {
+  const handleStepTransition = (nextStep: number) => {
     setIsAnimating(true);
     setTimeout(() => {
       setCurrentStep(nextStep);
@@ -51,7 +51,7 @@ export default function DeveloperOnboarding() {
     }, 300);
   };
 
-  const handleFileUpload = (file) => {
+  const handleFileUpload = (file: File) => {
     if (file && file.type === 'application/pdf') {
       setProfile(prev => ({ ...prev, cvFile: file }));
       // Skip to step 5 (contact details) after CV upload
@@ -61,23 +61,27 @@ export default function DeveloperOnboarding() {
     }
   };
 
-  const handleFileDrop = (e) => {
+  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    handleFileUpload(file);
+    if (file) {
+      handleFileUpload(file);
+    }
   };
 
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    handleFileUpload(file);
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFileUpload(file);
+    }
   };
 
-  const handleUserTypeSelect = (type) => {
+  const handleUserTypeSelect = (type: string) => {
     setProfile(prev => ({ ...prev, userType: type }));
     setTimeout(() => handleStepTransition(3), 800);
   };
 
-  const handleExperienceSelect = (level) => {
+  const handleExperienceSelect = (level: string) => {
     setProfile(prev => ({ ...prev, experience: level }));
     setTimeout(() => handleStepTransition(4), 800);
   };
